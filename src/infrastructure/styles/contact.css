@@ -1,0 +1,218 @@
+/* Contact — centered liquid-glass card */
+.contact-card {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(233, 69, 96, 0.14), transparent 55%),
+    linear-gradient(160deg, rgba(26, 26, 46, 0.9), rgba(15, 15, 26, 0.92));
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.contact-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  color: var(--color-white);
+}
+
+.contact-card__subtitle {
+  margin-top: 0.75rem;
+  font-size: var(--text-lg);
+  color: var(--color-light);
+  opacity: 0.9;
+}
+
+.contact-card__mail {
+  margin-top: 0.35rem;
+  font-size: var(--text-sm);
+  color: var(--color-light);
+  opacity: 0.65;
+}
+
+.contact-card__mail a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Liquid-glass field wrapper (holds the input + the ::after glow) */
+.contact-field-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.contact-field-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  border-radius: inherit;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.contact-field-wrap:focus-within {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 3px rgba(233, 69, 96, 0.25);
+}
+
+.contact-field-wrap--error {
+  border-color: #f87171;
+}
+
+/* The actual input/textarea sits transparent above the glow */
+.contact-field {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+.contact-field::placeholder {
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.contact-field--textarea {
+  resize: vertical;
+  min-height: 130px;
+  display: block;
+}
+
+.contact-error {
+  margin-top: 0.35rem;
+  font-size: var(--text-xs);
+  color: #f87171;
+}
+
+/* Submit — compact, on-brand gradient (not the red that blends in) */
+.contact-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 0.5rem auto 0;
+  padding: 0.6rem 1.6rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, #9b5cff, #4adfff);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(111, 44, 255, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.contact-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(111, 44, 255, 0.45);
+}
+
+.contact-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.contact-status {
+  text-align: center;
+  font-size: var(--text-sm);
+}
+
+.contact-status--success {
+  color: #4ade80;
+}
+
+.contact-status--error {
+  color: #f87171;
+}
+
+/* Floating WhatsApp button — slides in from the left when contact is reached */
+.contact-whatsapp-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.75rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.3rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.95), rgba(18, 140, 70, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 12px 34px rgba(37, 211, 102, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(140%);
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.3s ease;
+}
+
+.contact-whatsapp-fab.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.contact-whatsapp-fab:hover {
+  box-shadow: 0 16px 40px rgba(37, 211, 102, 0.5);
+}
+
+.contact-whatsapp-fab svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+@media (max-width: 480px) {
+  .contact-card {
+    padding: 1.75rem;
+  }
+  .contact-whatsapp-fab {
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-whatsapp-fab {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  .contact-submit:hover {
+    transform: none;
+  }
+}

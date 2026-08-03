@@ -1,0 +1,224 @@
+/* Services — full rotating sphere with orbiting category buttons */
+.services-visual {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Orbit stage */
+.services-orbit {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 460px;
+  margin: 0 auto;
+}
+
+/* The sun at the center */
+.services-sphere {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 240px;
+  height: 240px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #fff7e6 0%,
+    #ffd166 20%,
+    #f5a623 44%,
+    #e9642f 70%,
+    #b0341f 100%
+  );
+  box-shadow:
+    0 0 60px 8px rgba(245, 166, 35, 0.55),
+    0 0 130px 26px rgba(233, 69, 96, 0.3),
+    inset -12px -16px 48px rgba(120, 20, 10, 0.5);
+  animation: sun-corona 4s ease-in-out infinite alternate;
+}
+
+/* Rotating sunspot surface (spun via inline transform from the shared angle) */
+.services-sphere__surface {
+  position: absolute;
+  inset: -12%;
+  background-image:
+    radial-gradient(26% 26% at 32% 34%, rgba(255, 255, 255, 0.55), transparent 60%),
+    radial-gradient(22% 22% at 66% 42%, rgba(176, 52, 31, 0.6), transparent 60%),
+    radial-gradient(30% 30% at 54% 70%, rgba(255, 209, 102, 0.6), transparent 62%),
+    radial-gradient(18% 18% at 40% 60%, rgba(233, 69, 96, 0.45), transparent 60%),
+    radial-gradient(16% 16% at 72% 66%, rgba(255, 247, 230, 0.4), transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 60%, transparent 82%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 60%, transparent 82%);
+}
+
+@keyframes sun-corona {
+  0% {
+    box-shadow:
+      0 0 60px 8px rgba(245, 166, 35, 0.55),
+      0 0 130px 26px rgba(233, 69, 96, 0.3),
+      inset -12px -16px 48px rgba(120, 20, 10, 0.5);
+  }
+  100% {
+    box-shadow:
+      0 0 80px 14px rgba(245, 166, 35, 0.7),
+      0 0 170px 40px rgba(233, 69, 96, 0.4),
+      inset -12px -16px 48px rgba(120, 20, 10, 0.5);
+  }
+}
+
+/* Orbit buttons */
+.orbit-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 150px;
+  padding: 0.6rem 1.1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  box-shadow:
+    0 8px 26px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  color: var(--color-light);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  /* No position transition while orbiting → the rAF motion stays crisp. */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    opacity 0.3s ease;
+}
+
+/* When engaged, buttons ease into their center / left / right slots. */
+.services-orbit.is-engaged .orbit-node,
+.services-orbit.is-settling .orbit-node {
+  transition:
+    left 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.orbit-node:hover {
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+/* Center button sits on the sphere and is the actionable one */
+.orbit-node.is-center {
+  z-index: 6;
+  max-width: 210px;
+  padding: 0.8rem 1.6rem;
+  font-size: var(--text-base);
+  border-color: var(--color-accent);
+  background: linear-gradient(135deg, rgba(155, 92, 255, 0.92), rgba(74, 223, 255, 0.78));
+  color: var(--color-white);
+  box-shadow: 0 14px 44px rgba(111, 44, 255, 0.55);
+}
+
+.orbit-node.is-center:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Subtypes below the sphere */
+.orbit-subtypes {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.subtypes-stack {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  width: max-content;
+  max-width: 460px;
+}
+
+/* Liquid-glass subtype node (display only) */
+.subtype-node {
+  width: 140px;
+  padding: 0.55rem 0.85rem;
+  border-radius: 1rem;
+  overflow-wrap: anywhere;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  box-shadow:
+    0 8px 26px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 6px rgba(255, 255, 255, 0.06);
+  color: var(--color-light);
+  font-size: var(--text-sm);
+  line-height: 1.25;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: subtype-in 0.35s ease forwards;
+}
+
+@keyframes subtype-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.subtype-desc {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: var(--text-xs);
+  color: var(--color-light);
+  opacity: 0.65;
+}
+
+/* Small screens: stack sphere + buttons, drop absolute positioning */
+.services-orbit--stacked {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.services-orbit--stacked .services-sphere {
+  position: static;
+  transform: none;
+  width: 200px;
+  height: 200px;
+}
+
+.services-orbit--stacked .orbit-node {
+  position: static;
+  transform: none;
+}
+
+.services-orbit--stacked .orbit-node.is-center {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-sphere {
+    animation: none;
+  }
+  .subtype-node {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

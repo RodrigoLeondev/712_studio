@@ -1,0 +1,15 @@
+export const GALAXY_CONFIG = {
+  density: 1,
+  glowIntensity: 0.2,
+  saturation: 0.03,
+  hueShift: 140,
+  twinkleIntensity: 0.5,
+  rotationSpeed: 0.015,
+  repulsionStrength: 4.5,
+  autoCenterRepulsion: 0,
+  starSpeed: 0.3,
+  speed: 0.0004,
+  mouseInteraction: true,
+  mouseRepulsion: true,
+  transparent: true,
+} as const;

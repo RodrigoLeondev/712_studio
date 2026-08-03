@@ -1,0 +1,73 @@
+/* Clients marquee — CSS-only infinite loop, pause on hover */
+.clients-carousel {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+.clients-track {
+  display: flex;
+  width: max-content;
+  gap: 3rem;
+  animation: clients-scroll 28s linear infinite;
+}
+
+.clients-carousel:hover .clients-track {
+  animation-play-state: paused;
+}
+
+.clients-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  height: 2.25rem;
+  color: var(--color-light);
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+
+.clients-item:hover {
+  opacity: 1;
+}
+
+.clients-item svg {
+  height: 100%;
+  width: auto;
+}
+
+@keyframes clients-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Reduced motion: no animation, wrap into a static row */
+@media (prefers-reduced-motion: reduce) {
+  .clients-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.5rem;
+  }
+  .clients-carousel {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .clients-item--dup {
+    display: none;
+  }
+}

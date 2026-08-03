@@ -1,0 +1,75 @@
+---
+import Container from '@/infrastructure/ui/Container.astro';
+import { SITE, NAV_LINKS, CONTACT } from '@/infrastructure/lib/constants';
+
+const year = new Date().getFullYear();
+const whatsappHref = `https://wa.me/${CONTACT.whatsapp.phone}?text=${encodeURIComponent(
+  CONTACT.whatsapp.message,
+)}`;
+---
+
+<footer class="section-surface border-t border-light/10 py-14">
+  <Container>
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]" data-reveal>
+      <!-- Brand -->
+      <div class="md:pr-8">
+        <p class="font-display text-2xl text-white">{SITE.name}</p>
+        <p class="mt-3 max-w-xs text-sm leading-relaxed text-light/60">
+          Estudio de producción creativa que une estrategia, creatividad y ejecución
+          audiovisual en un mismo flujo.
+        </p>
+      </div>
+
+      <!-- Nav -->
+      <nav aria-label="Footer links">
+        <p class="mb-4 text-sm font-medium uppercase tracking-wider text-light/80">Navegación</p>
+        <ul class="space-y-2">
+          {
+            NAV_LINKS.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-light/60 transition-colors hover:text-accent"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <div>
+        <p class="mb-4 text-sm font-medium uppercase tracking-wider text-light/80">Contacto</p>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              class="text-sm text-light/60 transition-colors hover:text-accent"
+            >
+              {CONTACT.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-light/60 transition-colors hover:text-accent"
+            >
+              WhatsApp
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-light/10 pt-6 text-center sm:flex-row sm:text-left"
+    >
+      <p class="text-xs text-light/40">© {year} {SITE.name}. Todos los derechos reservados.</p>
+      <p class="text-xs text-light/40">Desde la idea hasta la entrega final.</p>
+    </div>
+  </Container>
+</footer>

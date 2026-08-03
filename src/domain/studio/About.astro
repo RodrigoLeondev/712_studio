@@ -1,0 +1,31 @@
+---
+import SectionSurface from '@/infrastructure/ui/SectionSurface.astro';
+import Container from '@/infrastructure/ui/Container.astro';
+import AboutContent from './AboutContent.astro';
+import StatCard from './StatCard.astro';
+import { ABOUT_STAT } from '@/infrastructure/lib/constants';
+---
+
+<SectionSurface id="about">
+  <Container>
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <!-- Left: highlight stat card + animation below it -->
+      <div class="order-first lg:order-none" data-reveal>
+        <StatCard title={ABOUT_STAT.title} subtitle={ABOUT_STAT.subtitle} />
+        <div class="mt-8">
+          <img
+            src="/animations/anim1.svg"
+            alt=""
+            aria-hidden="true"
+            class="block w-full"
+          />
+        </div>
+      </div>
+
+      <!-- Right: editorial content + clients -->
+      <div data-reveal style="--reveal-delay:0.15s">
+        <AboutContent />
+      </div>
+    </div>
+  </Container>
+</SectionSurface>

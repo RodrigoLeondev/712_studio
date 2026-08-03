@@ -1,0 +1,19 @@
+---
+import SectionSurface from '@/infrastructure/ui/SectionSurface.astro';
+import Container from '@/infrastructure/ui/Container.astro';
+import ProcessTiltedGrid from './ProcessTiltedGrid.tsx';
+import { PROCESS_INTRO, PROCESS_CARDS } from '@/infrastructure/lib/constants';
+---
+
+<SectionSurface id="process">
+  <Container>
+    <div class="mb-12" data-reveal>
+      <p class="mb-2 text-sm uppercase tracking-widest text-accent">{PROCESS_INTRO.label}</p>
+      <h2 class="section-title">{PROCESS_INTRO.title}</h2>
+      <p class="section-subtitle">{PROCESS_INTRO.subtitle}</p>
+    </div>
+    <div data-reveal style="--reveal-delay:0.15s">
+      <ProcessTiltedGrid client:load cards={PROCESS_CARDS} />
+    </div>
+  </Container>
+</SectionSurface>

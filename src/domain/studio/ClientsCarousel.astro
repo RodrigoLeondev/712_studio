@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+import '@/infrastructure/styles/clients.css';
+import type { ClientsCarouselProps } from './types';
+
+const { label, clients } = Astro.props as ClientsCarouselProps;
+
+// Duplicate the set so the -50% translate loops seamlessly.
+const loop = [...clients, ...clients];
+---
+
+<div>
+  {label && (
+    <p class="mb-4 text-xs uppercase tracking-widest text-light/50">{label}</p>
+  )}
+  <div class="clients-carousel">
+    <div class="clients-track">
+      {loop.map((client, i) => (
+        <div
+          class:list={['clients-item', i >= clients.length && 'clients-item--dup']}
+          aria-hidden={i >= clients.length ? 'true' : undefined}
+        >
+          <Icon name={client.icon} title={client.name} />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

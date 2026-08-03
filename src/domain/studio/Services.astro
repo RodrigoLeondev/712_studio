@@ -1,0 +1,23 @@
+---
+import SectionSurface from '@/infrastructure/ui/SectionSurface.astro';
+import Container from '@/infrastructure/ui/Container.astro';
+import ServicesLeft from './ServicesLeft.astro';
+import ServicesVisual from './ServicesVisual.tsx';
+import { SERVICE_CATEGORIES } from '@/infrastructure/lib/constants';
+---
+
+<SectionSurface id="services">
+  <Container>
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <!-- Left: editorial content (static) -->
+      <div data-reveal>
+        <ServicesLeft />
+      </div>
+
+      <!-- Right: sun with orbiting category buttons -->
+      <div data-reveal style="--reveal-delay:0.15s">
+        <ServicesVisual client:load categories={SERVICE_CATEGORIES} />
+      </div>
+    </div>
+  </Container>
+</SectionSurface>

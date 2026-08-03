@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/infrastructure/layouts/BaseLayout.astro';
+import Nav from '@/domain/navigation/Nav';
+import HeroContent from '@/domain/showcase/HeroContent';
+import HeroVideo from '@/domain/showcase/HeroVideo';
+import ContactForm from '@/domain/contact/ContactForm';
+import About from '@/domain/studio/About.astro';
+import Services from '@/domain/studio/Services.astro';
+import Process from '@/domain/studio/Process.astro';
+import Footer from '@/domain/footer/Footer.astro';
+import {
+  HERO,
+} from '@/infrastructure/lib/constants';
+---
+
+<BaseLayout>
+  <Nav client:load />
+
+  <section id="hero" class="relative">
+    <div class="flex flex-col items-center pt-38 pb-24">
+      <div class="relative z-10 flex w-full flex-col items-center">
+        <HeroContent
+          client:load
+          badgeText={HERO.badgeText}
+          title={HERO.title}
+          subtitle={HERO.subtitle}
+          ctaText={HERO.ctaText}
+          ctaLink={HERO.ctaLink}
+        />
+      </div>
+    </div>
+
+    <HeroVideo client:load videoUrl={HERO.videoUrl} />
+  </section>
+
+  <About />
+  <Services />
+  <Process />
+
+  <div data-reveal>
+    <ContactForm client:visible />
+  </div>
+
+  <Footer />
+</BaseLayout>

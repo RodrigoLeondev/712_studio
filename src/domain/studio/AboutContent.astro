@@ -1,0 +1,30 @@
+---
+import ClientsCarousel from './ClientsCarousel.astro';
+import { ABOUT, ABOUT_STAT, CLIENTS, COLORS } from '@/infrastructure/lib/constants';
+import type { AboutContentProps } from './types';
+
+const {
+  label = ABOUT.label,
+  title = ABOUT.title,
+  paragraphs = ABOUT.paragraphs,
+  clientsLabel = ABOUT.clientsLabel,
+  clients = CLIENTS,
+} = Astro.props as AboutContentProps;
+---
+
+<div>
+  {label && (
+    <p class="mb-2 text-s uppercase tracking-widest text-accent">{label}</p>
+  )}
+  <h2 class="section-title">{title}</h2>
+
+  <div class="mt-6 space-y-4">
+    {paragraphs.map((paragraph) => (
+      <p class="text-light/70 leading-relaxed">{paragraph}</p>
+    ))}
+  </div>
+
+  <div class="mt-10">
+    <ClientsCarousel label={clientsLabel} clients={clients} />
+  </div>
+</div>

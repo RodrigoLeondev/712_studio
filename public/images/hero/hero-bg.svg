@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect width="100%" height="100%" fill="#061018" />
+  <circle cx="800" cy="450" r="200" fill="#0f1724" />
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9b5cff" font-size="48">Showreel Poster</text>
+</svg>

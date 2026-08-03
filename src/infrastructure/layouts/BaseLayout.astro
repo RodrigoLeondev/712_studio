@@ -1,0 +1,108 @@
+---
+import '@/infrastructure/styles/globals.css';
+import { SITE } from '@/infrastructure/lib/constants';
+import WaveBackground from '@/infrastructure/webgl/WaveBackground';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+} = Astro.props;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  logo: `${SITE.url}/logo.png`,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.keywords} />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/og-image.jpg" />
+    <meta property="og:url" content={SITE.url} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/og-image.jpg" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preload" href="/fonts/Satoshi-Bold.woff2" as="font" type="font/woff2" crossorigin />
+
+    <title>{title}</title>
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <!-- Global SVG filter for the liquid-glass distortion (referenced by .glass-card__filter) -->
+    <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+      <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+        <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="60" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <WaveBackground client:load />
+    <div class="relative z-0 min-h-screen">
+      <slot />
+    </div>
+
+    <script is:inline>
+      // Always land on the hero on (re)load — don't restore prior scroll.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.addEventListener('load', () => window.scrollTo(0, 0));
+
+      // Reveal [data-reveal] elements as they scroll into view (both directions).
+      (function () {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              entry.target.classList.toggle('is-visible', entry.isIntersecting);
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+        );
+
+        const seen = new WeakSet();
+        const scan = () => {
+          document.querySelectorAll('[data-reveal]').forEach((el) => {
+            if (!seen.has(el)) {
+              seen.add(el);
+              observer.observe(el);
+            }
+          });
+        };
+
+        scan();
+        document.addEventListener('DOMContentLoaded', scan);
+        window.addEventListener('load', scan);
+
+        // Catch islands (e.g. Contact) that hydrate/mount after initial load.
+        new MutationObserver(scan).observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+      })();
+    </script>
+  </body>
+</html>
