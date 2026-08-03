@@ -13,7 +13,9 @@ export default defineConfig({
     react(),
     icon(),
     compress({
-      CSS: true,
+      // csso strips Tailwind v4 range-syntax media queries (@media (width>=64rem)),
+      // killing all responsive breakpoints. Vite/lightningcss already minifies CSS.
+      CSS: false,
       HTML: true,
       JavaScript: true,
       // SVGO breaks animated SVGs (collapses nested <g transform> groups that
