@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { createPortal } from 'react-dom';
+import { useState, type FormEvent } from 'react';
 import type { ContactFormProps } from '@/domain/contact/types';
 import { CONTACT } from '@/infrastructure/lib/constants';
 import { cn } from '@/infrastructure/lib/utils/helpers';
@@ -13,14 +12,6 @@ interface FormState {
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-function WhatsappIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.04 2.5a9.52 9.52 0 0 0-8.13 14.4l-1.35 4.93 5.06-1.33a9.53 9.53 0 1 0 4.42-17.99zm0 17.4a7.86 7.86 0 0 1-4-1.1l-.29-.17-2.96.78.79-2.89-.19-.3a7.88 7.88 0 1 1 6.65 3.68z" />
-    </svg>
-  );
-}
-
 export default function ContactForm({
   endpoint,
   successMessage = CONTACT.successMessage,
@@ -29,26 +20,6 @@ export default function ContactForm({
   const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errors, setErrors] = useState<Partial<FormState>>({});
-  const [whatsappActive, setWhatsappActive] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-    const element = cardRef.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry) setWhatsappActive(entry.isIntersecting);
-      },
-      { threshold: 0.2 },
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
 
   const validate = (): boolean => {
     const next: Partial<FormState> = {};
@@ -84,14 +55,10 @@ export default function ContactForm({
     }
   };
 
-  const whatsappHref = `https://wa.me/${CONTACT.whatsapp.phone}?text=${encodeURIComponent(
-    CONTACT.whatsapp.message,
-  )}`;
-
   return (
     <section id="contact" className="section-padding section-surface">
       <div className="mx-auto w-full px-4 sm:px-6 lg:px-8">
-        <div ref={cardRef} className="contact-card">
+        <div className="contact-card glass-surface">
           <header className="mb-8 text-center">
             <p className="mb-2 text-sm uppercase tracking-widest text-accent">{CONTACT.label}</p>
             <h2 className="contact-card__title">{CONTACT.title}</h2>
@@ -167,22 +134,6 @@ export default function ContactForm({
           </form>
         </div>
       </div>
-
-      {mounted &&
-        createPortal(
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn('contact-whatsapp-fab', whatsappActive && 'is-active')}
-            aria-hidden={!whatsappActive}
-            tabIndex={whatsappActive ? 0 : -1}
-          >
-            <WhatsappIcon />
-            {CONTACT.whatsapp.label}
-          </a>,
-          document.body,
-        )}
     </section>
   );
 }

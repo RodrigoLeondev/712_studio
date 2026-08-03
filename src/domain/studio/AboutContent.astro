@@ -12,7 +12,7 @@ const {
 } = Astro.props as AboutContentProps;
 ---
 
-<div>
+<div class="about-content flex h-full flex-col">
   {label && (
     <p class="mb-2 text-s uppercase tracking-widest text-accent">{label}</p>
   )}
@@ -24,7 +24,7 @@ const {
     ))}
   </div>
 
-  <div class="mt-10">
+  <div class="clients-align mt-6">
     <ClientsCarousel label={clientsLabel} clients={clients} />
   </div>
 </div>

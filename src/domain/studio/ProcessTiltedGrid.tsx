@@ -4,7 +4,7 @@ import type { ProcessCard as ProcessCardType, ProcessTiltedGridProps } from './t
 
 function ProcessCard({ title, text, action }: Omit<ProcessCardType, 'id'>) {
   return (
-    <article className="process-card">
+    <article className="process-card glass-surface">
       <div className="process-card__content">
         <h3 className="process-card__title">{title}</h3>
         <p className="process-card__text">{text}</p>

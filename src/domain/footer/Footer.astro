@@ -3,18 +3,15 @@ import Container from '@/infrastructure/ui/Container.astro';
 import { SITE, NAV_LINKS, CONTACT } from '@/infrastructure/lib/constants';
 
 const year = new Date().getFullYear();
-const whatsappHref = `https://wa.me/${CONTACT.whatsapp.phone}?text=${encodeURIComponent(
-  CONTACT.whatsapp.message,
-)}`;
 ---
 
-<footer class="section-surface border-t border-light/10 py-14">
+<footer class="section-surface border-t border-light/10 py-8">
   <Container>
-    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]" data-reveal>
+    <div class="grid gap-x-10 gap-y-6 sm:grid-cols-[1.5fr_1fr_1fr]" data-reveal>
       <!-- Brand -->
-      <div class="md:pr-8">
+      <div class="sm:pr-8">
         <p class="font-display text-2xl text-white">{SITE.name}</p>
-        <p class="mt-3 max-w-xs text-sm leading-relaxed text-light/60">
+        <p class="mt-3 text-sm leading-relaxed text-light/60">
           Estudio de producción creativa que une estrategia, creatividad y ejecución
           audiovisual en un mismo flujo.
         </p>
@@ -22,7 +19,7 @@ const whatsappHref = `https://wa.me/${CONTACT.whatsapp.phone}?text=${encodeURICo
 
       <!-- Nav -->
       <nav aria-label="Footer links">
-        <p class="mb-4 text-sm font-medium uppercase tracking-wider text-light/80">Navegación</p>
+        <p class="mb-2 text-sm font-medium uppercase tracking-wider text-light/80">Navegación</p>
         <ul class="space-y-2">
           {
             NAV_LINKS.map((link) => (
@@ -41,7 +38,7 @@ const whatsappHref = `https://wa.me/${CONTACT.whatsapp.phone}?text=${encodeURICo
 
       <!-- Contact -->
       <div>
-        <p class="mb-4 text-sm font-medium uppercase tracking-wider text-light/80">Contacto</p>
+        <p class="mb-2 text-sm font-medium uppercase tracking-wider text-light/80">Contacto</p>
         <ul class="space-y-2">
           <li>
             <a
@@ -51,22 +48,12 @@ const whatsappHref = `https://wa.me/${CONTACT.whatsapp.phone}?text=${encodeURICo
               {CONTACT.email}
             </a>
           </li>
-          <li>
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-light/60 transition-colors hover:text-accent"
-            >
-              WhatsApp
-            </a>
-          </li>
         </ul>
       </div>
     </div>
 
     <div
-      class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-light/10 pt-6 text-center sm:flex-row sm:text-left"
+      class="mt-6 flex flex-col items-center justify-between gap-2 border-t border-light/10 pt-4 text-center sm:flex-row sm:text-left"
     >
       <p class="text-xs text-light/40">© {year} {SITE.name}. Todos los derechos reservados.</p>
       <p class="text-xs text-light/40">Desde la idea hasta la entrega final.</p>

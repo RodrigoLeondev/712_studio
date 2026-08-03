@@ -7,10 +7,12 @@ const statNumber = title.split(' ')[0];
 const statText = title.replace(statNumber, '').trim();
 ---
 
-<div class="stat-card" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-  <div class="stat-card__number" style={`color: ${COLORS.purple}; font-weight:800; font-size: clamp(2rem, 6.5vw, 4.25rem); line-height:1;`}>{statNumber}</div>
-  <div style="display:flex;flex-direction:column;">
-    <div class="stat-card__text" style={`color: ${COLORS.purple}; font-weight:700; font-size: clamp(1rem, 2.4vw, 1.25rem);`}>{statText}</div>
-    <div class="stat-card__subtitle" style={`color: ${COLORS.redOrange}; font-weight:800; font-size: clamp(.85rem, 2vw, 1rem); margin-top:6px;`}>{subtitle}</div>
+<div class="glass-surface stat-card">
+  <div class="stat-card__inner" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <div class="stat-card__number" style={`color: ${COLORS.purple}; font-weight:800; font-size: clamp(2rem, 6.5vw, 4.25rem); line-height:1;`}>{statNumber}</div>
+    <div style="display:flex;flex-direction:column;">
+      <div class="stat-card__text" style={`color: ${COLORS.purple}; font-weight:700; font-size: clamp(1rem, 2.4vw, 1.25rem);`}>{statText}</div>
+      <div class="stat-card__subtitle" style={`color: ${COLORS.redOrange}; font-weight:800; font-size: clamp(.85rem, 2vw, 1rem); margin-top:6px;`}>{subtitle}</div>
+    </div>
   </div>
 </div>

@@ -59,6 +59,17 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+  }
+
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -81,6 +92,10 @@
     font-family: var(--font-display);
     font-weight: 600;
     line-height: 1.2;
+  }
+
+  p {
+    font-size: var(--text-xl);
   }
 
   img,

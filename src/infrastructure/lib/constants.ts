@@ -136,11 +136,6 @@ export const CONTACT = {
   sendingText: 'Enviando…',
   successMessage: '¡Mensaje enviado! Te contactamos muy pronto.',
   errorMessage: 'Algo salió mal. Inténtalo de nuevo.',
-  whatsapp: {
-    phone: '5215512345678',
-    message: 'Hola 712, quiero agendar una llamada.',
-    label: 'Escríbenos por WhatsApp',
-  },
 } as const;
 
 export const CLIENTS = [
