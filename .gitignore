@@ -36,3 +36,5 @@ coverage/
 
 # local planning / reports
 reports/
+
+.package-lock.json
