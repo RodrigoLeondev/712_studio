@@ -13,9 +13,12 @@ export default defineConfig({
     react(),
     icon(),
     compress({
-      css: true,
-      html: true,
-      js: true,
+      CSS: true,
+      HTML: true,
+      JavaScript: true,
+      // SVGO breaks animated SVGs (collapses nested <g transform> groups that
+      // the SMIL <animateTransform> nodes pivot on). Keep SVGs byte-identical.
+      SVG: false,
     }),
   ],
   vite: {
